@@ -35,7 +35,7 @@ class AbstractClient(ABC):
         pass
 
     @abstractmethod
-    async def get_token(self, data: AccountSchema):
+    async def create_token(self, data: AccountSchema):
         pass
 
     @abstractmethod
