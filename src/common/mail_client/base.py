@@ -11,7 +11,7 @@ class AbstractClient(ABC):
         pass
 
     @abstractmethod
-    async def fetch_data_get(self, url: str):
+    async def fetch_data_get(self, url: str, headers: Optional[dict]):
         pass
 
     @abstractmethod
