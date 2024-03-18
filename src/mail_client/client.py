@@ -9,6 +9,9 @@ from src.database.schemas import AccountSchema
 
 
 class MailClient(AbstractClient):
+    """
+    docs https://docs.mail.gw/
+    """
     def __init__(self):
         self.base_url = 'https://api.mail.gw/'
         self.user_token = None
