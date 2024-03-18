@@ -6,12 +6,8 @@ from src.database.schemas import AccountSchema
 
 
 class AbstractClient(ABC):
-    def __init__(self):
-        self.base_url: str
-        self.user_token: Optional[str]
-
     @abstractmethod
-    async def fetch_data_post(self, url: str):
+    async def fetch_data_post(self, url: str, headers: Optional[dict], json: Optional[dict]):
         pass
 
     @abstractmethod
