@@ -1,4 +1,7 @@
 from typing import Optional
+from string import ascii_letters
+from string import digits
+from random import choice
 from pprint import pprint
 
 import aiohttp
@@ -16,7 +19,12 @@ class MailClient(AbstractClient):
         self.base_url = 'https://api.mail.gw/'
         self.user_token = None
 
-    async def fetch_data_post(self, url: str, headers: Optional[dict] = None, json: Optional[dict] = None):
+    async def fetch_data_post(
+            self,
+            url: str,
+            headers: Optional[dict] = None,
+            json: Optional[dict] = None
+    ) -> Optional[dict]:
         async with aiohttp.ClientSession(headers=headers) as session:
             async with session.post(url, json=json) as r:
                 if r and r.status == 201:
@@ -25,7 +33,7 @@ class MailClient(AbstractClient):
                     raise Exception(r)
             return json_body
 
-    async def fetch_data_get(self, url: str, headers: Optional[dict] = None):
+    async def fetch_data_get(self, url: str, headers: Optional[dict] = None) -> Optional[dict]:
         async with aiohttp.ClientSession(headers=headers) as session:
             async with session.get(url) as r:
                 if r and r.status == 200:
@@ -48,11 +56,29 @@ class MailClient(AbstractClient):
             if verification:
                 return verification
 
-    def _create_user_data(self, data: AccountSchema):
-        pass
+    async def _create_user_data(self):
+        random_kit = ascii_letters + digits
+        username = ''.join(choice(random_kit) for _ in range(10))
+        domain = await self._get_domain()
+        adress = f'{username}@{domain}'
+        while True:
+            password = ''.join(choice(random_kit) for i in range(20))
+            if (sum(c.islower() for c in password) >= 4
+                    and sum(c.isupper() for c in password) >= 4
+                    and sum(c.isdigit() for c in password) >= 4):
+                break
+        data = {
+            'address': adress,
+            'password': password,
+        }
+        return data
 
-    async def create_account(self, data: AccountSchema):
-        pass
+    async def create_account(self):
+        link = f'{self.base_url}accounts'
+        data = await self._create_user_data()
+        request = await self.fetch_data_post(link, json=data)
+
+        return request
 
     async def create_token(self, data: AccountSchema):
         pass
@@ -67,7 +93,12 @@ class MailClient(AbstractClient):
 if __name__ == '__main__':
     async def main():
         client = MailClient()
-        get_q = await client.fetch_data_get(url='https://api.mail.gw/domains?page=1')
+#         gettt = await client.fetch_data_post('https://api.mail.gw/accounts', json={
+#   "address": "aasdasfasf@maxamba.com",
+#   "password": "Qeasfasfasf1"
+# })
+#         print(gettt)
+        get_q = await client.create_account()
+        pprint(get_q)
 
     asyncio.run(main())
-
