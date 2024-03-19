@@ -19,15 +19,15 @@ class AbstractClient(ABC):
         pass
 
     @abstractmethod
-    async def get_domain(self):
+    async def _get_domain(self):
         pass
 
     @abstractmethod
-    def _create_user_data(self, data: AccountSchema):
+    async def _create_user_data(self):
         pass
 
     @abstractmethod
-    async def create_account(self, data: AccountSchema):
+    async def create_account(self):
         pass
 
     @abstractmethod
