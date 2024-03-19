@@ -34,11 +34,19 @@ class MailClient(AbstractClient):
                     raise Exception(r)
             return json_body
 
-    def _domain_verification(self, data: dict):
-        pass
+    def _domain_verification(self, data: dict) -> str:
+        for elems in data['hydra:member']:
+            if elems.get('isActive'):
+                return elems.get('domain')
 
-    async def get_domain(self):
-        pass
+    async def _get_domain(self) -> str:
+        for page in range(1, 11):
+            link = f'{self.base_url}domains?page={page}'
+            data = await self.fetch_data_get(link)
+            verification = self._domain_verification(data)
+
+            if verification:
+                return verification
 
     def _create_user_data(self, data: AccountSchema):
         pass
@@ -59,9 +67,7 @@ class MailClient(AbstractClient):
 if __name__ == '__main__':
     async def main():
         client = MailClient()
-        get_q = await client.fetch_data_get(url='https://api.mail.gw/domains')
-        post_q = ...
-        pprint(get_q)
+        get_q = await client.fetch_data_get(url='https://api.mail.gw/domains?page=1')
 
     asyncio.run(main())
 
