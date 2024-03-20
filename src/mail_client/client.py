@@ -90,7 +90,7 @@ class MailClient(AbstractClient):
         link = f'{self.base_url}token'
         data = self.user_data
         request = await self.fetch_data_post(link, json=data)
-        self.user_token = {"Authorization": request.get('token')}
+        self.user_token = {"Authorization": f'Bearer {request.get("token")}'}
         return request
 
     async def get_messages_all(self):
