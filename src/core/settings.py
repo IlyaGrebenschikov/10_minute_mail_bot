@@ -17,7 +17,7 @@ class BotSettings(BaseSettings):
         env_file_encoding='utf-8',
     )
     TOKEN: Final[str]
-    PARSE_MODE: ParseMode = ParseMode.HTML
+    PARSE_MODE: ParseMode | str = ParseMode.HTML
 
 
 class Settings:
