@@ -20,7 +20,7 @@ class MailClient(AbstractClient):
     def __init__(self):
         self.base_url = 'https://api.mail.gw/'
         self.user_token = Optional[dict]
-        self.user_data = dict()
+        self.user_data = Optional[dict]
 
     async def fetch_data_post(
             self,
@@ -60,7 +60,7 @@ class MailClient(AbstractClient):
             if verification:
                 return verification
 
-    async def _create_user_data(self):
+    async def _create_user_data(self) -> dict:
         random_kit_username = ascii_lowercase + digits
         random_kit_password = ascii_letters + digits
         username = ''.join(choice(random_kit_username) for _ in range(10))
@@ -76,17 +76,16 @@ class MailClient(AbstractClient):
             'address': adress,
             'password': password,
         }
-        self.user_data.update(data)
+        self.user_data = data
         return data
 
     async def create_account(self) -> Optional[dict]:
         link = f'{self.base_url}accounts'
         data = await self._create_user_data()
         request = await self.fetch_data_post(link, json=data)
-
         return request
 
-    async def create_token(self):
+    async def create_token(self) -> Optional[dict]:
         link = f'{self.base_url}token'
         data = self.user_data
         request = await self.fetch_data_post(link, json=data)
@@ -107,8 +106,8 @@ async def main():
     token = await client.create_token()
     token_data = client.user_token
     pprint(user)
-    pprint(data)
-    pprint(token_data)
+    # pprint(data)
+    # pprint(token_data)
     pprint(token)
 
 if __name__ == '__main__':
