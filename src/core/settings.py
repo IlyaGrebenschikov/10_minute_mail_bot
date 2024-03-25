@@ -1,5 +1,7 @@
+from functools import lru_cache
 from pathlib import Path
 from typing import Final
+
 
 from aiogram.enums import ParseMode
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -22,5 +24,6 @@ class Settings:
     bot: BotSettings = BotSettings()
 
 
+@lru_cache
 def get_settings() -> Settings:
     return Settings()
