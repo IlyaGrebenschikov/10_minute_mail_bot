@@ -10,7 +10,7 @@
 - `REDIS_URL` = `redis://{REDIS_HOST}:{REDIS_PORT}` dont change this value
 #### Local Env
 - `TOKEN` = `your token`
-- `REDIS_HOST` = `your token`
+- `REDIS_HOST` = `your host`
 - `REDIS_PORT` = `your port`
 - `REDIS_URL` = `redis://{REDIS_HOST}:{REDIS_PORT}` dont change this value
 ### Docker:
