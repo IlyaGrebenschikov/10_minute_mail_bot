@@ -1,6 +1,6 @@
-from src.handlers.users.start_handler import start_router
+from src.handlers.users.routers import users_router
 
 
 __all__ = (
-    'start_router',
+    'users_router'
 )
