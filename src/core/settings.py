@@ -5,7 +5,7 @@ from typing import Final
 
 from aiogram.enums import ParseMode
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import DirectoryPath
+from pydantic import DirectoryPath, SecretStr
 
 
 ROOT_DIR: DirectoryPath = Path(__file__).parent.parent.parent
@@ -17,7 +17,7 @@ class EnvSettings(BaseSettings):
         env_file_encoding='utf-8',
     )
 
-    TOKEN: str
+    TOKEN: SecretStr
 
     REDIS_URL: str
     REDIS_PORT: str
@@ -25,7 +25,7 @@ class EnvSettings(BaseSettings):
 
 
 class BotSettings(EnvSettings):
-    TOKEN: str
+    TOKEN: SecretStr
     PARSE_MODE: ParseMode | str = ParseMode.HTML
 
 

@@ -11,7 +11,7 @@ from src.handlers.users import users_router
 
 async def main():
     bot = Bot(
-        get_settings().bot.TOKEN,
+        get_settings().bot.TOKEN.get_secret_value(),
         default=DefaultBotProperties(parse_mode=get_settings().bot.PARSE_MODE)
     )
     dp = Dispatcher()
