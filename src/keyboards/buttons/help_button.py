@@ -2,7 +2,7 @@ from aiogram.types import ReplyKeyboardMarkup
 from aiogram.types import KeyboardButton
 
 
-def help_keyboard() -> ReplyKeyboardMarkup:
+def help_button() -> ReplyKeyboardMarkup:
     kb = [
             [KeyboardButton(text='/help')]
         ]
