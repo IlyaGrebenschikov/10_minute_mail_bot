@@ -1,13 +1,8 @@
-import time
 from typing import Optional
 from string import ascii_lowercase
 from string import ascii_letters
 from string import digits
 from random import choice
-
-import asyncio
-
-import aiohttp
 
 from src.mail_client.client_session import (
     ClientSession,
@@ -48,6 +43,7 @@ class MailClient:
         username = ''.join(choice(random_kit_username) for _ in range(10))
         domain = await self.__get_domain()
         adress = f'{username}@{domain}'
+
         while True:
             password = ''.join(choice(random_kit_password) for _ in range(20))
             if (sum(c.islower() for c in password) >= 4
@@ -81,21 +77,3 @@ class MailClient:
         link = f'{self.base_url}messages/{message_id}'
         request = await fetch_data_get(self.__session, link)
         return request
-
-
-async def main():
-    client = MailClient()
-    account = await client.create_account()
-    print(account)
-    token = await client.create_token(account)
-    print(token)
-    client = MailClient(token)
-    while True:
-        message = await client.get_messages_all()
-        print(message)
-        time.sleep(30)
-        continue
-
-
-if __name__ == '__main__':
-    asyncio.run(main())

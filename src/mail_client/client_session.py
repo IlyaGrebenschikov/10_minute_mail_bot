@@ -1,4 +1,3 @@
-import asyncio
 from typing import Optional
 
 import aiohttp
@@ -39,14 +38,3 @@ async def fetch_data_post(client_session: aiohttp.ClientSession, url: str, json:
             else:
                 raise Exception(r)
         return json_body
-
-
-async def main():
-    session = ClientSession()
-    url = 'https://api.mail.gw/domains?page=1'
-    get = await fetch_data_get(session, url)
-    print(get)
-
-
-if __name__ == '__main__':
-    asyncio.run(main())
