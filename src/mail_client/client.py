@@ -3,6 +3,7 @@ from string import ascii_lowercase
 from string import ascii_letters
 from string import digits
 from random import choice
+from urllib.parse import urljoin
 
 from src.mail_client.client_session import (
     ClientSession,
@@ -30,7 +31,7 @@ class MailClient:
 
     async def __get_domain(self) -> str:
         for page in range(1, 11):
-            link = f'{self.base_url}domains?page={page}'
+            link = urljoin(self.base_url, f'domains?page={page}')
             data = await fetch_data_get(self.__session, link)
             verification = self.__domain_verification(data)
 
@@ -57,23 +58,23 @@ class MailClient:
         return data
 
     async def create_account(self) -> Optional[dict]:
-        link = f'{self.base_url}accounts'
+        link = urljoin(self.base_url, 'accounts')
         data = await self.__create_user_data()
         await fetch_data_post(self.__session, link, json=data)
         return data
 
     async def create_token(self, user_data: dict[str, str]) -> Optional[dict]:
-        link = f'{self.base_url}token'
+        link = urljoin(self.base_url, 'token')
         request = await fetch_data_post(self.__session, link, json=user_data)
         token = request.get('token')
         return {'Authorization': f'Bearer {token}'}
 
     async def get_messages_all(self, page: int = 1) -> dict:
-        link = f'{self.base_url}messages?page={page}'
+        link = urljoin(self.base_url, f'messages?page={page}')
         request = await fetch_data_get(self.__session, link)
         return request
 
     async def get_message_id(self, message_id: str) -> dict:
-        link = f'{self.base_url}messages/{message_id}'
+        link = urljoin(self.base_url, f'messages/{message_id}')
         request = await fetch_data_get(self.__session, link)
         return request
