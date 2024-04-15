@@ -6,7 +6,6 @@ WORKDIR /usr/src/project
 RUN apt update
 RUN pip install --upgrade pip
 RUN pip install poetry
-
 COPY . .
 WORKDIR /usr/src/project/
 ADD pyproject.toml .

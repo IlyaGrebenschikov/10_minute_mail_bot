@@ -7,8 +7,9 @@ services:
   bot:
     build: .
     volumes:
-      - ..:/10_minute_mail_bot
-    command: bash -c 'python -m src.main'
+      - ./:/usr/src/
+    working_dir: /usr/src
+    command: python -m src.main
     networks:
       - bot-network
     ports:
