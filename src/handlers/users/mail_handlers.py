@@ -3,9 +3,9 @@ from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
-from src.keyboards import start_kb_builder
-from src.fsm import MailForm
-from src.filters import CanlelFilter
+from keyboards.start_keyboard import start_kb_builder
+from fsm.mail_fsm import MailForm
+from filters.mail_filters import CanlelFilter
 
 
 mail_router = Router()

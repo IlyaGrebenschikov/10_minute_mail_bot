@@ -5,7 +5,7 @@ from string import digits
 from random import choice
 from urllib.parse import urljoin
 
-from src.mail_client.client_session import (
+from .client_session import (
     ClientSession,
     fetch_data_get,
     fetch_data_post

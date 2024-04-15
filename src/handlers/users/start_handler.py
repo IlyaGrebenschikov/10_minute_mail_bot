@@ -3,7 +3,7 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message
 from aiogram.utils.markdown import hbold
 
-from src.keyboards import start_kb_builder
+from keyboards.start_keyboard import start_kb_builder
 
 
 start_router = Router()

@@ -1,6 +1,6 @@
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
-from src.keyboards.buttons import help_button
+from .buttons.help_button import help_button
 
 
 def start_kb_builder() -> ReplyKeyboardBuilder:

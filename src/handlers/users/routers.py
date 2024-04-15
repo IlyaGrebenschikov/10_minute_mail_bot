@@ -1,8 +1,8 @@
 from aiogram import Router
 
-from src.handlers.users.start_handler import start_router
-from src.handlers.users.help_handler import help_router
-from src.handlers.users.mail_handlers import mail_router
+from .start_handler import start_router
+from .help_handler import help_router
+from .mail_handlers import mail_router
 
 
 users_router = Router()

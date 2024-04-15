@@ -1,7 +1,7 @@
 import redis.asyncio as aioredis
 from redis import Redis
 
-from src.core import get_settings
+from core.settings import get_settings
 
 
 async def redis_get_session() -> Redis:
